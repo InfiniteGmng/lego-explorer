@@ -4,15 +4,6 @@
 
 ---
 
-## Table of Contents
-
-- [About the Project](#about-the-project)
-- [Features](#features)
-- [Project Objectives](#project-objectives)
-- [API Documentation](#api-documentation)
-
----
-
 ## About the Project
 
 This project is a part of a multi-stage assignment focused on practical web application development. The Lego Explorer site will be developed using both front-end and back-end code, following RESTful principles, and eventually deployed on a popular cloud platform (such as AWS, Azure, or Google Cloud Platform). This README documents the structure and features of the website, along with how to set it up and test it locally.
