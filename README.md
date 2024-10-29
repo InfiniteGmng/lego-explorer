@@ -46,3 +46,23 @@ The API follows REST principles and is documented in Postman. The API documentat
 **[Future API Documentation](#)**
 
 ---
+
+## Getting Started
+
+To set up this project locally, follow these steps:
+
+### Prerequisites
+
+- **Node.js** and **npm** installed
+- **MySQL** if using a database (or Docker for easier setup)
+- **Postman** for testing API endpoints
+
+### Installation
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/InfiniteGmng/lego-explorer.git
+   cd lego-explorer
+   ```
+
+---
