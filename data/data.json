@@ -1,0 +1,18 @@
+{
+  "LegoSet": {
+    "name": "Millennium Falcon",
+    "setNumber": "75257",
+    "theme": "Star Wars",
+    "pieces": 1351,
+    "price": 159.99,
+    "releaseYear": 2019,
+    "availability": true
+  },
+  "UserInfo": {
+    "username": "LegoFan123",
+    "email": "legofan123@example.com",
+    "setsOwned": ["75257", "60292", "76161"],
+    "favoriteTheme": "Star Wars",
+    "totalPieces": 3000
+  }
+}

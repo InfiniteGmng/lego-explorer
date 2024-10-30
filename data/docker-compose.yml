@@ -1,0 +1,23 @@
+version: "3.1"
+
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Mf8Ar8xmsGAh2oC7
+      MYSQL_DATABASE: legos
+      MYSQL_USER: nlanctot
+      MYSQL_PASSWORD: pyHF9JkGXCsyC39U
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_USER: nlanctot
+      PMA_PASSWORD: pyHF9JkGXCsyC39U
+    ports:
+      - "8080:80"
