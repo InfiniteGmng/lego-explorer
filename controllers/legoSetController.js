@@ -16,17 +16,47 @@ const getLegoSetById = (req, res) => {
 const addLegoSet = (req, res) => {
   const newLegoSet = req.body;
 
-  // Validation: Check if a Lego set with the same ID already exists
-  const existingLegoSet = legoSets.find((set) => set.id === newLegoSet.id);
-  if (existingLegoSet)
+  // Check if a Lego set with the same ID already exists
+  if (legoSets.find((set) => set.id === newLegoSet.id)) {
     return res.status(400).json({ error: "Lego set ID already exists" });
+  }
 
   legoSets.push(newLegoSet);
   res.status(201).json(newLegoSet);
+};
+
+// Update an existing Lego set by ID
+const updateLegoSet = (req, res) => {
+  const { id } = req.params;
+  const index = legoSets.findIndex((set) => set.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ error: "Lego set not found" });
+  }
+
+  // Replace old data with new data from request body
+  legoSets[index] = { ...legoSets[index], ...req.body };
+  res.json(legoSets[index]);
+};
+
+// Delete a Lego set by ID
+const deleteLegoSet = (req, res) => {
+  const { id } = req.params;
+  const index = legoSets.findIndex((set) => set.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ error: "Lego set not found" });
+  }
+
+  // Remove the Lego set from the array
+  legoSets.splice(index, 1);
+  res.status(204).end();
 };
 
 module.exports = {
   getAllLegoSets,
   getLegoSetById,
   addLegoSet,
+  updateLegoSet,
+  deleteLegoSet,
 };

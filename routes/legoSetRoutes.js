@@ -11,4 +11,10 @@ router.get("/legoSets/:id", legoSetController.getLegoSetById);
 // Route to add a new Lego set
 router.post("/legoSets", legoSetController.addLegoSet);
 
+// Route to update an existing Lego set by ID
+router.put("/legoSets/:id", legoSetController.updateLegoSet);
+
+// Route to delete a Lego set by ID
+router.delete("/legoSets/:id", legoSetController.deleteLegoSet);
+
 module.exports = router;
