@@ -1,19 +1,16 @@
 import express from "express";
-import path from "path";
-import { fileURLToPath } from "url";
+import legoSetRoutes from "./routes/legoSetRoutes.js";
+import userInfoRoutes from "./routes/userInfoRoutes.js";
 
 const app = express();
 const port = 3030;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+app.use(express.static("./public"));
+app.use(express.json());
 
-// Serve static files from the public directory
-app.use(express.static(path.join(__dirname, "public")));
-
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/home.html"));
-});
+// Define routes for Lego sets and user information
+app.use("/api/legoSets", legoSetRoutes);
+app.use("/api/userInfo", userInfoRoutes);
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

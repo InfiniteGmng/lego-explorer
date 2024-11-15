@@ -1,23 +1,24 @@
-version: "3.1"
-
 services:
   db:
-    image: mysql:5.7
+    image: mysql:latest
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: Mf8Ar8xmsGAh2oC7
       MYSQL_DATABASE: legos
       MYSQL_USER: nlanctot
       MYSQL_PASSWORD: pyHF9JkGXCsyC39U
+    volumes:
+      - ./mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
     restart: always
+    depends_on:
+      - db
     environment:
       PMA_HOST: db
-      PMA_USER: nlanctot
-      PMA_PASSWORD: pyHF9JkGXCsyC39U
+      MYSQL_ROOT_PASSWORD: Mf8Ar8xmsGAh2oC7
     ports:
       - "8080:80"

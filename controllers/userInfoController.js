@@ -1,62 +1,55 @@
-const userInfo = require("../data/data.json").userInfo;
+import userInfoDb from "../db/userInfoDb.js";
 
 // Retrieve all user information records
-const getAllUserInfo = (req, res) => {
-  res.json(userInfo);
+export const getAllUserInfo = async (req, res) => {
+  try {
+    const users = await userInfoDb.getAllUserInfo();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to retrieve user information" });
+  }
 };
 
 // Retrieve specific user information by ID
-const getUserInfoById = (req, res) => {
-  const user = userInfo.find((user) => user.id === req.params.id);
-  if (!user) return res.status(404).json({ error: "User not found" });
-  res.json(user);
+export const getUserInfoById = async (req, res) => {
+  try {
+    const user = await userInfoDb.getUserInfoById(req.params.id);
+    if (!user) return res.status(404).json({ error: "User not found" });
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to retrieve user information" });
+  }
 };
 
 // Add a new user information record
-const addUserInfo = (req, res) => {
+export const addUserInfo = async (req, res) => {
   const newUser = req.body;
-
-  // Check if a user with the same ID already exists
-  if (userInfo.find((user) => user.id === newUser.id)) {
-    return res.status(400).json({ error: "User ID already exists" });
+  try {
+    await userInfoDb.addUserInfo(newUser);
+    res.status(201).json(newUser);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to add user information" });
   }
-
-  userInfo.push(newUser);
-  res.status(201).json(newUser);
 };
 
 // Update an existing user information record by ID
-const updateUserInfo = (req, res) => {
+export const updateUserInfo = async (req, res) => {
   const { id } = req.params;
-  const index = userInfo.findIndex((user) => user.id === id);
-
-  if (index === -1) {
-    return res.status(404).json({ error: "User not found" });
+  try {
+    await userInfoDb.updateUserInfo(id, req.body);
+    res.json(req.body);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update user information" });
   }
-
-  // Update user data with the request body data
-  userInfo[index] = { ...userInfo[index], ...req.body };
-  res.json(userInfo[index]);
 };
 
 // Delete a user information record by ID
-const deleteUserInfo = (req, res) => {
+export const deleteUserInfo = async (req, res) => {
   const { id } = req.params;
-  const index = userInfo.findIndex((user) => user.id === id);
-
-  if (index === -1) {
-    return res.status(404).json({ error: "User not found" });
+  try {
+    await userInfoDb.deleteUserInfo(id);
+    res.status(204).end();
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete user information" });
   }
-
-  // Remove the user from the array
-  userInfo.splice(index, 1);
-  res.status(204).end();
-};
-
-module.exports = {
-  getAllUserInfo,
-  getUserInfoById,
-  addUserInfo,
-  updateUserInfo,
-  deleteUserInfo,
 };

@@ -1,14 +1,7 @@
 const express = require("express");
 const app = express();
-const legoSetRoutes = require("./routes/legoSetRoutes");
-const userInfoRoutes = require("./routes/userInfoRoutes");
 
 // Middleware to parse JSON bodies
-app.use(express.json());
-
-// Define routes for Lego sets and user information
-app.use("/api", legoSetRoutes);
-app.use("/api", userInfoRoutes);
 
 // Define a basic route for testing server functionality
 app.get("/", (req, res) => {

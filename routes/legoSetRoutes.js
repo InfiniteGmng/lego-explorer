@@ -1,20 +1,18 @@
-const express = require("express");
+import express from "express";
+import {
+  getAllLegoSets,
+  getLegoSetById,
+  addLegoSet,
+  updateLegoSet,
+  deleteLegoSet,
+} from "../controllers/legoSetController.js";
+
 const router = express.Router();
-const legoSetController = require("../controllers/legoSetController");
 
-// Route to retrieve all Lego sets
-router.get("/legoSets", legoSetController.getAllLegoSets);
+router.get("/", legoSetController.getAllLegoSets);
+router.get("/:id", legoSetController.getLegoSetById);
+router.post("/", legoSetController.addLegoSet);
+router.put("/:id", legoSetController.updateLegoSet);
+router.delete("/:id", legoSetController.deleteLegoSet);
 
-// Route to retrieve a specific Lego set by ID
-router.get("/legoSets/:id", legoSetController.getLegoSetById);
-
-// Route to add a new Lego set
-router.post("/legoSets", legoSetController.addLegoSet);
-
-// Route to update an existing Lego set by ID
-router.put("/legoSets/:id", legoSetController.updateLegoSet);
-
-// Route to delete a Lego set by ID
-router.delete("/legoSets/:id", legoSetController.deleteLegoSet);
-
-module.exports = router;
+export default router;
