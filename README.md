@@ -43,7 +43,7 @@ This project includes a documented API to provide external access to Lego set da
 
 The API follows REST principles and is documented in Postman. The API documentation, including endpoint details and example requests, is published on Postman and linked below.
 
-**[Future API Documentation](#)**
+**[Postman API Documentation](https://web.postman.co/workspace/5f218edc-aefe-4faa-a22e-3b4089def15c/documentation/38880162-72a22762-fcc6-40b5-8b52-4fe1a5ff10d1)**
 
 ---
 
