@@ -47,5 +47,46 @@
         </section>
       </main>
     </div>
+
+    <div id="lego-set-form">
+      <h2>Add / Update Lego Set</h2>
+      <form id="add-update-form">
+        <input type="text" id="name" placeholder="Name" required />
+        <input type="text" id="theme" placeholder="Theme" required />
+        <input type="number" id="pieces" placeholder="Pieces" required />
+        <input type="number" id="price" placeholder="Price" required />
+        <input
+          type="number"
+          id="releaseYear"
+          placeholder="Release Year"
+          required
+        />
+        <select id="availability">
+          <option value="true">Available</option>
+          <option value="false">Unavailable</option>
+        </select>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <div id="lego-sets">
+      <h2>Lego Sets</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Theme</th>
+            <th>Pieces</th>
+            <th>Price</th>
+            <th>Release Year</th>
+            <th>Availability</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="legoTableBody"></tbody>
+      </table>
+    </div>
+
+    <script src="app.js"></script>
   </body>
 </html>

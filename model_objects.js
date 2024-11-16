@@ -19,4 +19,4 @@ const UserCollection = {
 };
 
 // Exporting models for use in other parts of the application
-module.exports = { LegoSet, UserCollection };
+export default { LegoSet, UserCollection };

@@ -11,6 +11,7 @@ body {
   color: #ffffff;
   text-align: center;
   padding: 20px;
+  margin: 20px;
 }
 
 /* Container for the page */
@@ -31,6 +32,7 @@ header h1 {
   text-transform: uppercase;
   text-shadow: 4px 4px #0077b6;
   margin-bottom: 30px;
+  text-align: center;
 }
 
 /* Main content */
@@ -72,4 +74,34 @@ button:hover {
   background-color: #0077b6;
   color: #ffd60a;
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input,
+select,
+button {
+  padding: 10px;
+  font-size: 14px;
 }

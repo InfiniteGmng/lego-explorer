@@ -9,10 +9,37 @@ import {
 
 const router = express.Router();
 
-router.get("/", userInfoController.getAllUserInfo);
-router.get("/:id", userInfoController.getUserInfoById);
-router.post("/", userInfoController.addUserInfo);
-router.put("/:id", userInfoController.updateUserInfo);
-router.delete("/:id", userInfoController.deleteUserInfo);
+// Middleware to log incoming requests for debugging
+router.use((req, res, next) => {
+  console.log(
+    `[${new Date().toISOString()}] ${req.method} request to ${req.url}`
+  );
+  next();
+});
+
+// Validate request payloads for POST and PUT routes
+const validateUserInfo = (req, res, next) => {
+  const { allUsers, userById, addUser, updateUser, deleteUser, year } =
+    req.body;
+
+  if (
+    !allUsers ||
+    !userById ||
+    !addUser ||
+    !updateUser ||
+    !deleteUser ||
+    year === undefined
+  ) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+  next();
+};
+
+// Define routes for User information
+router.get("/", getAllUserInfo);
+router.get("/:id", getUserInfoById);
+router.post("/", validateUserInfo, addUserInfo);
+router.put("/:id", validateUserInfo, updateUserInfo);
+router.delete("/:id", deleteUserInfo);
 
 export default router;
