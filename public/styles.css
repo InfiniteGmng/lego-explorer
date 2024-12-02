@@ -26,10 +26,10 @@ body {
   padding: 20px;
   background: linear-gradient(
     135deg,
-    #fecd06,
-    /* Lego Yellow */ #0051ba,
-    /* Lego Blue */ #d62828,
-    /* Lego Red */ #007a33 /* Lego Green */
+    #9b06fe,
+    /* Purple */ #0051ba,
+    /* Blue */ #d62828,
+    /* Red */ #ff57b9 /* Pink */
   );
   background-size: 400% 400%; /* Smooth blending across colors */
   animation: gradient-animation 50s ease infinite; /* Optional animation */

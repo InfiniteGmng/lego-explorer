@@ -25,6 +25,7 @@ const validateLegoSet = (req, res, next) => {
   // Ensure all required fields are provided
   if (
     !name ||
+    !setNumber ||
     !theme ||
     !pieces ||
     !price ||
@@ -56,9 +57,9 @@ const validateLegoSet = (req, res, next) => {
 
 // Define routes for Lego sets
 router.get("/", getAllLegoSets); // Get all Lego sets
-router.get("/:id", getLegoSetById); // Get a specific Lego set by ID
+router.get("/:setNumber", getLegoSetById); // Get a specific Lego set by setNumber
 router.post("/", validateLegoSet, addLegoSet); // Add a new Lego set
-router.put("/:id", validateLegoSet, updateLegoSet); // Update an existing Lego set
+router.put("/:setNumber", validateLegoSet, updateLegoSet); // Update an existing Lego set
 router.delete("/:setNumber", deleteLegoSet); // Delete a Lego set
 
 export default router;

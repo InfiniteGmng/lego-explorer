@@ -36,14 +36,14 @@ async function getAllLegoSets() {
 }
 
 /**
- * Retrieve a Lego set by ID.
- * @param {number} id - The ID of the Lego set.
+ * Retrieve a Lego set by setNumber.
+ * @param {number} setNumber - The setNumber of the Lego set.
  * @returns {Promise<Object|null>} The Lego set record or null if not found.
  */
-async function getLegoSetById(id) {
+async function getLegoSetById(setNumber) {
   const [results] = await connect.query(
-    "SELECT * FROM lego_sets WHERE id = ?",
-    [id]
+    "SELECT * FROM LegoSet WHERE setNumber = ?",
+    [setNumber]
   );
   return results.length > 0 ? results[0] : null;
 }
@@ -51,8 +51,8 @@ async function getLegoSetById(id) {
 /**
  * Add a new Lego set to the database.
  * @param {Object} legoSet - The Lego set data.
+ * @param {number} legoSet.setNumber - The unique set number.
  * @param {string} legoSet.name - The name of the Lego set.
- * @param {string} legoSet.setNumber - The unique set number.
  * @param {string} legoSet.theme - The theme of the Lego set.
  * @param {number} legoSet.pieces - The number of pieces in the set.
  * @param {number} legoSet.price - The price of the Lego set.
@@ -60,40 +60,65 @@ async function getLegoSetById(id) {
  * @param {boolean} legoSet.availability - The availability status of the set.
  */
 async function addLegoSet(legoSet) {
-  const { name, setNumber, theme, pieces, price, releaseYear, availability } =
+  const { setNumber, name, theme, pieces, price, releaseYear, availability } =
     legoSet;
   await connect.query(
-    "INSERT INTO LegoSet (name, setNumber, theme, pieces, price, releaseYear, availability) VALUES (?, ?, ?, ?, ?, ?, ?)",
-    [name, setNumber, theme, pieces, price, releaseYear, availability]
+    "INSERT INTO LegoSet (setNumber, name, theme, pieces, price, releaseYear, availability) VALUES (?, ?, ?, ?, ?, ?, ?)",
+    [setNumber, name, theme, pieces, price, releaseYear, availability]
   );
 }
 
 /**
- * Update an existing Lego set by ID.
- * @param {number} id - The ID of the Lego set to update.
+ * Update an existing Lego set by setNumber.
+ * @param {number} setNumber - The setNumber of the Lego set to update.
  * @param {Object} updatedData - The updated Lego set data.
  * @param {string} updatedData.name - The name of the Lego set.
- * @param {string} updatedData.setNumber - The unique set number.
  * @param {string} updatedData.theme - The theme of the Lego set.
  * @param {number} updatedData.pieces - The number of pieces in the set.
  * @param {number} updatedData.price - The price of the Lego set.
  * @param {number} updatedData.releaseYear - The release year of the set.
  * @param {boolean} updatedData.availability - The availability status of the set.
  */
-async function updateLegoSet(id, updatedData) {
-  const { name, setNumber, theme, pieces, price, releaseYear, availability } =
-    updatedData;
-  await connect.query(
-    "UPDATE LegoSet SET name = ?, setNumber = ?, theme = ?, pieces = ?, price = ?, releaseYear = ?, availability = ? WHERE id = ?",
-    [name, setNumber, theme, pieces, price, releaseYear, availability, id]
-  );
+async function updateLegoSet(setNumber, updatedData) {
+  const {
+    name,
+    setNumber: newSetNumber,
+    theme,
+    pieces,
+    price,
+    releaseYear,
+    availability,
+  } = updatedData;
+
+  if (setNumber !== newSetNumber) {
+    // Ensure the setNumber can be updated, typically should be a unique identifier
+    await connect.query(
+      "UPDATE LegoSet SET setNumber = ?, name = ?, theme = ?, pieces = ?, price = ?, releaseYear = ?, availability = ? WHERE setNumber = ?",
+      [
+        newSetNumber,
+        name,
+        theme,
+        pieces,
+        price,
+        releaseYear,
+        availability,
+        setNumber,
+      ]
+    );
+  } else {
+    // Only update the other fields if setNumber remains unchanged
+    await connect.query(
+      "UPDATE LegoSet SET name = ?, theme = ?, pieces = ?, price = ?, releaseYear = ?, availability = ? WHERE setNumber = ?",
+      [name, theme, pieces, price, releaseYear, availability, setNumber]
+    );
+  }
 }
 
 /**
- * Delete a Lego set by ID.
- * @param {number} setNumber - The ID of the Lego set to delete.
+ * Delete a Lego set by setNumber.
+ * @param {number} setNumber - The setNumber of the Lego set to delete.
  */
-async function deleteLegoSet(id) {
+async function deleteLegoSet(setNumber) {
   await connect.query("DELETE FROM LegoSet WHERE setNumber = ?", [setNumber]);
 }
 

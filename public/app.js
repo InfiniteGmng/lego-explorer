@@ -16,11 +16,19 @@ async function addOrUpdateLegoSet(event) {
   event.preventDefault();
 
   const setNumber = document.getElementById("setNumber").value; // Hidden input for editing
+  const priceValue = parseFloat(document.getElementById("price").value);
+
+  // Validate that the price is a valid decimal number
+  if (isNaN(priceValue) || priceValue <= 0) {
+    alert("Please enter a valid price.");
+    return;
+  }
+
   const legoSet = {
     name: document.getElementById("name").value,
     theme: document.getElementById("theme").value,
     pieces: parseInt(document.getElementById("pieces").value),
-    price: parseFloat(document.getElementById("price").value),
+    price: priceValue,
     releaseYear: parseInt(document.getElementById("releaseYear").value),
     availability: document.getElementById("availability").value === "true",
   };
@@ -77,7 +85,7 @@ function displayLegoSets(legoSets) {
       <td>${set.name}</td>
       <td>${set.theme}</td>
       <td>${set.pieces}</td>
-      <td>${set.price}</td>
+      <td>${set.price.toFixed(2)}</td> <!-- Display price as a decimal -->
       <td>${set.releaseYear}</td>
       <td>${set.availability ? "Yes" : "No"}</td>
       <td>

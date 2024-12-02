@@ -23,11 +23,11 @@ export const getUserInfoById = async (req, res) => {
 
 // Add a new user information record
 export const addUserInfo = async (req, res) => {
-  const newUser = req.body;
   try {
-    await userInfoDb.addUserInfo(newUser);
+    const newUser = await userInfoDb.addUserInfo(req.body);
     res.status(201).json(newUser);
   } catch (error) {
+    console.error("Error adding user information:", error);
     res.status(500).json({ error: "Failed to add user information" });
   }
 };

@@ -1,7 +1,7 @@
 // Define the LegoSet model
 const LegoSet = {
+  setNumber: "75257", // Unique identifier for each Lego set (primary key)
   name: "Millennium Falcon", // Name of the Lego set
-  setNumber: "75257", // Unique identifier for each Lego set
   theme: "Star Wars", // Theme of the Lego set
   pieces: 1351, // Total number of pieces included in the set
   price: 159.99, // Retail price of the Lego set

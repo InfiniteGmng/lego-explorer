@@ -4,6 +4,7 @@ import legoSetsDb from "../db/legoSetsDb.js";
 export const getAllLegoSets = async (req, res) => {
   try {
     const legoSets = await legoSetsDb.getAllLegoSets();
+
     res.json(legoSets);
   } catch (error) {
     console.error("Error fetching Lego sets:", error);
@@ -11,27 +12,32 @@ export const getAllLegoSets = async (req, res) => {
   }
 };
 
-// Retrieve a specific Lego set by ID
+// Retrieve a specific Lego set by setNumber
 export const getLegoSetById = async (req, res) => {
+  const { setNumber } = req.params;
+
   try {
-    const legoSet = await legoSetsDb.getLegoSetById(req.params.id);
-    if (!legoSet) return res.status(404).json({ error: "Lego set not found" });
+    const legoSet = await legoSetsDb.getLegoSetById(setNumber);
+
+    if (!legoSet)
+      return res.status(404).json({ error: `Set '${setNumber}' not found` });
+
     res.json(legoSet);
   } catch (error) {
-    console.error("Error fetching Lego set by ID:", error);
-    res.status(500).json({ error: "Failed to retrieve Lego set" });
+    console.error("Error fetching Lego set by setNumber:", error);
+    res.status(500).json({ error: `Failed to retrieve set '${setNumber}'` });
   }
 };
 
 // Add a new Lego set
 export const addLegoSet = async (req, res) => {
-  const { name, setNumber, theme, pieces, price, releaseYear, availability } =
+  const { setNumber, name, theme, pieces, price, releaseYear, availability } =
     req.body;
 
   // Validate the input data before proceeding
   if (
+    setNumber === undefined ||
     !name ||
-    !setNumber ||
     !theme ||
     !pieces ||
     !price ||
@@ -44,37 +50,45 @@ export const addLegoSet = async (req, res) => {
   try {
     // Insert the Lego set into the database
     await legoSetsDb.addLegoSet(req.body);
-    res.status(201).json(req.body); // Send the added Lego set back in the response
+
+    res.status(201).json(req.body);
   } catch (error) {
     console.error("Error adding Lego set:", error);
     res.status(500).json({ error: "Failed to add Lego set" });
   }
 };
 
-// Update an existing Lego set by ID
+// Update an existing Lego set by setNumber
 export const updateLegoSet = async (req, res) => {
+  const { setNumber } = req.params;
+
   try {
-    await legoSetsDb.updateLegoSet(req.params.id, req.body);
-    res.json(req.body); // Return the updated data
+    console.log(`Updating set: ${setNumber}`);
+
+    await legoSetsDb.updateLegoSet(setNumber, req.body);
+
+    res.json(req.body);
   } catch (error) {
     console.error("Error updating Lego set:", error);
-    res.status(500).json({ error: "Failed to update Lego set" });
+    res.status(500).json({ error: `Failed to update set '${setNumber}'` });
   }
 };
 
-// Delete a Lego set by ID
+// Delete a Lego set by setNumber
 export const deleteLegoSet = async (req, res) => {
-  const { setNumber } = req.params; // Get the setNumber from the request params
+  const { setNumber } = req.params;
 
   try {
-    console.log(`Deleting Lego set with setNumber: ${setNumber}`);
+    console.log(`Deleting set: ${setNumber}`);
 
     // Pass the setNumber to the database function
     await legoSetsDb.deleteLegoSet(setNumber);
 
-    res.status(204).end(); // Successfully deleted, no content to return
+    res
+      .status(200)
+      .json({ message: `Set '${setNumber}' was successfully deleted.` });
   } catch (error) {
     console.error("Error deleting Lego set:", error);
-    res.status(500).json({ error: "Failed to delete Lego set" });
+    res.status(500).json({ error: `Failed to delete set '${setNumber}'` });
   }
 };
