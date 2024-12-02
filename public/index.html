@@ -4,90 +4,151 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lego Explorer</title>
-    <link rel="stylesheet" href="styles.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="legologo.jpg" />
   </head>
   <body>
-    <div class="container">
-      <header>
-        <h1>Lego Explorer</h1>
-      </header>
-      <main>
-        <img src="legologo.jpg" alt="Lego Logo" />
-        <section>
-          <p>
-            Welcome to <strong>Lego Explorer</strong> - your ultimate hub for
-            exploring, tracking, and discovering Lego sets! This website serves
-            as a <em>SaaS platform</em> for Lego enthusiasts of all ages.
-            Whether you're a casual builder, serious collector, or anyone in
-            between, we have something for everyone!
-          </p>
-        </section>
-        <section>
-          <h2>About the Project</h2>
-          <p>
-            Lego Explorer is part of a web development assignment designed to
-            provide hands-on experience with both front-end and back-end
-            development, RESTful principles, and cloud deployment on platforms
-            like AWS, Azure, or GCP.
-          </p>
-        </section>
-        <section>
-          <h2>API Documentation</h2>
-          <p>
-            Our API provides access to Lego set data, supporting operations like
-            retrieving, searching, and managing records in user collections. The
-            API adheres to REST principles and is fully documented in Postman.
-            You can access the documentation through the link provided in our
-            README file.
-          </p>
-        </section>
-      </main>
+    <!-- Centered Panel Container -->
+    <div class="centered-panel">
+      <div class="container my-4">
+        <!-- Main Content -->
+        <main class="my-4">
+          <!-- Header -->
+          <header class="text-center">
+            <h1 class="display-4 text-light">Admin Panel</h1>
+            <hr class="border-light" />
+          </header>
+          <h2 class="text-light">Lego Set Management</h2>
+
+          <div class="row g-4">
+            <!-- Add / Update Lego Set Form -->
+            <div class="col-md-4">
+              <div class="bg-secondary text-light p-4 rounded shadow">
+                <h3 class="text-center">Add / Update Lego Set</h3>
+                <form id="add-update-form">
+                  <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="name"
+                      placeholder="Enter set name"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="theme" class="form-label">Theme</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="theme"
+                      placeholder="Enter theme"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="pieces" class="form-label">Pieces</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="pieces"
+                      placeholder="Enter number of pieces"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="price"
+                      placeholder="Enter price"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="releaseYear" class="form-label"
+                      >Release Year</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="releaseYear"
+                      placeholder="Enter release year"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="availability" class="form-label"
+                      >Availability</label
+                    >
+                    <select class="form-select" id="availability">
+                      <option value="true">Available</option>
+                      <option value="false">Unavailable</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-dark w-100">
+                    Submit
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Lego Sets Table -->
+            <div class="col-md-8">
+              <div class="bg-secondary text-light p-4 rounded shadow">
+                <h3 class="text-center">Lego Sets</h3>
+                <table class="table table-bordered table-hover table-dark">
+                  <thead class="table-light text-center">
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Theme</th>
+                      <th>Pieces</th>
+                      <th>Price</th>
+                      <th>Release Year</th>
+                      <th>Availability</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody id="legoTableBody">
+                    <!-- Example Row -->
+                    <tr>
+                      <td>1001</td>
+                      <td>Classic Brick Set</td>
+                      <td>Classic</td>
+                      <td>500</td>
+                      <td>$29.99</td>
+                      <td>2020</td>
+                      <td>Available</td>
+                      <td>
+                        <button class="btn btn-sm btn-warning">Edit</button>
+                      </td>
+                      <td>
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                      </td>
+                    </tr>
+                    <!-- Additional rows will go here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
 
-    <div id="lego-set-form">
-      <h2>Add / Update Lego Set</h2>
-      <form id="add-update-form">
-        <input type="hidden" id="setNumber" />
-        <input type="text" id="name" placeholder="Name" required />
-        <input type="text" id="theme" placeholder="Theme" required />
-        <input type="number" id="pieces" placeholder="Pieces" required />
-        <input type="number" id="price" placeholder="Price" required />
-        <input
-          type="number"
-          id="releaseYear"
-          placeholder="Release Year"
-          required
-        />
-        <select id="availability">
-          <option value="true">Available</option>
-          <option value="false">Unavailable</option>
-        </select>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-
-    <div id="lego-sets">
-      <h2>Lego Sets</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Theme</th>
-            <th>Pieces</th>
-            <th>Price</th>
-            <th>Release Year</th>
-            <th>Availability</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="legoTableBody"></tbody>
-      </table>
-    </div>
-
-    <script src="app.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
