@@ -2,6 +2,7 @@ services:
   db:
     image: mysql:latest
     restart: always
+    # command: --skip-grant-tables
     environment:
       MYSQL_ROOT_PASSWORD: H9oTurfvoCRgbL6C
       MYSQL_DATABASE: legos

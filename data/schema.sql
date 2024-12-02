@@ -3,19 +3,21 @@ CREATE DATABASE IF NOT EXISTS legos;
 USE legos;
 
 CREATE TABLE LegoSet (
-  name VARCHAR(255),
-  setNumber VARCHAR(50) PRIMARY KEY,
-  theme VARCHAR(100),
-  pieces INT,
-  price DECIMAL(10, 2),
-  releaseYear INT,
-  availability BOOLEAN
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  setNumber VARCHAR(50) NOT NULL UNIQUE,
+  theme VARCHAR(100) NOT NULL,
+  pieces INT NOT NULL,
+  price DECIMAL(10, 2) NOT NULL,
+  releaseYear INT NOT NULL,
+  availability BOOLEAN NOT NULL
 );
 
 CREATE TABLE UserInfo (
-  username VARCHAR(50) PRIMARY KEY,
-  email VARCHAR(255),
-  setsOwned JSON,
-  favoriteTheme VARCHAR(100),
-  totalPieces INT
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  email VARCHAR(255) NOT NULL,
+  setsOwned JSON NOT NULL,
+  favoriteTheme VARCHAR(100) NOT NULL,
+  totalPieces INT NOT NULL
 );

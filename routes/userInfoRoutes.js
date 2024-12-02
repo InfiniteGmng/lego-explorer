@@ -19,27 +19,47 @@ router.use((req, res, next) => {
 
 // Validate request payloads for POST and PUT routes
 const validateUserInfo = (req, res, next) => {
-  const { allUsers, userById, addUser, updateUser, deleteUser, year } =
-    req.body;
+  const { username, email, setsOwned, favoriteTheme, totalPieces } = req.body;
 
+  // Ensure required fields are provided
   if (
-    !allUsers ||
-    !userById ||
-    !addUser ||
-    !updateUser ||
-    !deleteUser ||
-    year === undefined
+    !username ||
+    !email ||
+    !setsOwned ||
+    !favoriteTheme ||
+    totalPieces === undefined
   ) {
-    return res.status(400).json({ error: "All fields are required" });
+    return res.status(400).json({ error: "All fields are required." });
   }
+
+  // Additional validations
+  if (typeof totalPieces !== "number" || totalPieces < 0) {
+    return res
+      .status(400)
+      .json({ error: "Total pieces must be a non-negative number." });
+  }
+  if (!Array.isArray(setsOwned)) {
+    return res
+      .status(400)
+      .json({ error: "Sets owned must be an array of set numbers." });
+  }
+  if (typeof username !== "string" || username.trim() === "") {
+    return res
+      .status(400)
+      .json({ error: "Username must be a non-empty string." });
+  }
+  if (!email.includes("@")) {
+    return res.status(400).json({ error: "Invalid email address." });
+  }
+
   next();
 };
 
-// Define routes for User information
-router.get("/", getAllUserInfo);
-router.get("/:id", getUserInfoById);
-router.post("/", validateUserInfo, addUserInfo);
-router.put("/:id", validateUserInfo, updateUserInfo);
-router.delete("/:id", deleteUserInfo);
+// Define routes for user information
+router.get("/", getAllUserInfo); // Get all user records
+router.get("/:id", getUserInfoById); // Get a specific user record by ID
+router.post("/", validateUserInfo, addUserInfo); // Add a new user record
+router.put("/:id", validateUserInfo, updateUserInfo); // Update an existing user record
+router.delete("/:id", deleteUserInfo); // Delete a user record
 
 export default router;
