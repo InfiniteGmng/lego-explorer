@@ -13,131 +13,187 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="legologo.jpg" />
   </head>
   <body>
-    <!-- Centered Panel Container -->
-    <div class="centered-panel">
-      <div class="container my-4">
-        <!-- Main Content -->
-        <main class="my-4">
-          <!-- Header -->
-          <header class="text-center">
-            <h1 class="display-4 text-light">Admin Panel</h1>
-            <hr class="border-light" />
-          </header>
-          <h2 class="text-light">Lego Set Management</h2>
+    <div class="container-fluid bg-dark text-light">
+      <header class="text-center mb-4">
+        <h1 class="display-4">Admin Panel</h1>
+        <hr class="border-light" />
+      </header>
 
-          <div class="row g-4">
-            <!-- Add / Update Lego Set Form -->
-            <div class="col-md-4">
-              <div class="bg-secondary text-light p-4 rounded shadow">
-                <h3 class="text-center">Add / Update Lego Set</h3>
-                <form id="add-update-form">
-                  <input type="hidden" id="setNumber" />
-                  <!-- Updated ID -->
-                  <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="name"
-                      placeholder="Enter set name"
-                      required
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label for="theme" class="form-label">Theme</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="theme"
-                      placeholder="Enter theme"
-                      required
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label for="pieces" class="form-label">Pieces</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="pieces"
-                      placeholder="Enter number of pieces"
-                      required
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label for="price" class="form-label">Price</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="price"
-                      placeholder="Enter price"
-                      required
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label for="releaseYear" class="form-label"
-                      >Release Year</label
-                    >
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="releaseYear"
-                      placeholder="Enter release year"
-                      required
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label for="availability" class="form-label"
-                      >Availability</label
-                    >
-                    <select class="form-select" id="availability">
-                      <option value="true">Available</option>
-                      <option value="false">Unavailable</option>
-                    </select>
-                  </div>
-                  <button type="submit" class="btn btn-dark w-100">
-                    Submit
-                  </button>
-                </form>
+      <!-- Lego Set Management -->
+      <div class="bg-secondary text-light p-4 rounded shadow mb-4">
+        <h2 class="text-center">Lego Set Management</h2>
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <h4>Add New Lego Set</h4>
+            <form id="add-set-form">
+              <div class="mb-3">
+                <label for="setNumber" class="form-label">Set Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="setNumber"
+                  placeholder="Enter set number"
+                  required
+                />
               </div>
-            </div>
+              <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="Enter set name"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="pieces" class="form-label">Pieces</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="pieces"
+                  placeholder="Enter number of pieces"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="price"
+                  placeholder="Enter price"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="releaseYear" class="form-label">Release Year</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="releaseYear"
+                  placeholder="Enter release year"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="availability" class="form-label"
+                  >Availability</label
+                >
+                <select class="form-select" id="availability">
+                  <option value="true">Available</option>
+                  <option value="false">Unavailable</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-dark w-100">
+                Add Lego Set
+              </button>
+            </form>
+          </div>
 
-            <!-- Lego Sets Table -->
-            <div class="col-md-8">
-              <div class="bg-secondary text-light p-4 rounded shadow">
-                <h3 class="text-center">Lego Sets</h3>
-                <table class="table table-bordered table-hover table-dark">
-                  <thead class="table-light text-center">
-                    <tr>
-                      <th>Set Number</th>
-                      <!-- Updated column name -->
-                      <th>Name</th>
-                      <th>Theme</th>
-                      <th>Pieces</th>
-                      <th>Price</th>
-                      <th>Release Year</th>
-                      <th>Availability</th>
-                      <th>Edit</th>
-                      <th>Delete</th>
-                    </tr>
-                  </thead>
-                  <tbody id="legoTableBody">
-                    <!-- Table rows will be populated dynamically -->
-                  </tbody>
-                </table>
-              </div>
+          <div class="col-md-8">
+            <h4>Lego Sets</h4>
+            <div class="table-wrapper">
+              <table class="table table-bordered table-hover table-dark">
+                <thead class="table-light text-center">
+                  <tr>
+                    <th>Set Number</th>
+                    <th>Name</th>
+                    <th>Pieces</th>
+                    <th>Price</th>
+                    <th>Release Year</th>
+                    <th>Availability</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="legoTableBody">
+                  <!-- Table rows will be populated dynamically -->
+                </tbody>
+              </table>
             </div>
           </div>
-        </main>
+        </div>
+      </div>
+
+      <!-- User Info Management -->
+      <div class="bg-secondary text-light p-4 rounded shadow">
+        <h2 class="text-center">User Info Management</h2>
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <h4>Add New User</h4>
+            <form id="add-user-form">
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  placeholder="Enter username"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="Enter email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="setsOwned" class="form-label">Sets Owned</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="setsOwned"
+                  placeholder="Enter sets owned (JSON format)"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="totalPieces" class="form-label">Total Pieces</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="totalPieces"
+                  placeholder="Enter total pieces"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-dark w-100">Add User</button>
+            </form>
+          </div>
+
+          <div class="col-md-8">
+            <h4>User Info</h4>
+            <div class="table-wrapper">
+              <table class="table table-bordered table-hover table-dark">
+                <thead class="table-light text-center">
+                  <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Sets Owned</th>
+                    <th>Total Pieces</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="userInfoTableBody">
+                  <!-- Table rows will be populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Link to your app.js file -->
     <script src="app.js"></script>
   </body>
 </html>

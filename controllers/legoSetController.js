@@ -36,7 +36,7 @@ export const addLegoSet = async (req, res) => {
 
   // Validate the input data before proceeding
   if (
-    setNumber === undefined ||
+    !setNumber ||
     !name ||
     !theme ||
     !pieces ||
@@ -47,10 +47,16 @@ export const addLegoSet = async (req, res) => {
     return res.status(400).json({ error: "All fields are required." });
   }
 
-  try {
-    // Insert the Lego set into the database
-    await legoSetsDb.addLegoSet(req.body);
+  // Check if setNumber already exists
+  const existingSet = await legoSetsDb.getLegoSetById(setNumber);
+  if (existingSet) {
+    return res
+      .status(400)
+      .json({ error: `Set with number '${setNumber}' already exists.` });
+  }
 
+  try {
+    await legoSetsDb.addLegoSet(req.body);
     res.status(201).json(req.body);
   } catch (error) {
     console.error("Error adding Lego set:", error);

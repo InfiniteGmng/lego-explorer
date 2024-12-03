@@ -5,7 +5,6 @@ USE legos;
 CREATE TABLE LegoSet (
   setNumber INT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  theme VARCHAR(100) NOT NULL,
   pieces INT NOT NULL,
   price DECIMAL(10, 2) NOT NULL,
   releaseYear INT NOT NULL,
@@ -17,6 +16,5 @@ CREATE TABLE UserInfo (
   username VARCHAR(50) NOT NULL UNIQUE,
   email VARCHAR(255) NOT NULL,
   setsOwned JSON NOT NULL,
-  favoriteTheme VARCHAR(100) NOT NULL,
   totalPieces INT NOT NULL
 );
